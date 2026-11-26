@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Two vocal lines, the lower one snapped onto the upper one at the marker. -->
+  <rect width="512" height="512" rx="112" fill="#1b1e24"/>
+  <path d="M60 170 C110 90 150 90 190 170 S270 250 310 170 S390 90 452 170" fill="none" stroke="#b9bdc5" stroke-width="26" stroke-linecap="round"/>
+  <path d="M60 342 C110 262 150 262 190 342 S270 422 310 342 S390 262 452 342" fill="none" stroke="#2ee6a6" stroke-width="26" stroke-linecap="round"/>
+  <path d="M190 96 V416" stroke="#4cc3ff" stroke-width="14" stroke-linecap="round" stroke-dasharray="4 30"/>
+</svg>

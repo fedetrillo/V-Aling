@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>V-Align</title>
+  <style>
+    :root, [data-theme="dark"] {
+      --plate: #15171b; --panel: #1d2025; --panel2: #262a31; --well: #101215; --edge: #2c3139;
+      --text: #f1f0ec; --dim: #858a93; --silk: #b9bdc5; --lead: #aeb3bb; --before: #ff7a6b;
+      --acc: #2ee6a6; --acc2: #4cc3ff; --ink: #0d1a15; --beta: #ffc34d; --ok: #3ddc84; --bad: #ff6a6a; color-scheme: dark;
+    }
+    [data-theme="grey"] {
+      --plate: #4a4e55; --panel: #555a62; --panel2: #5d626a; --well: #41454b; --edge: #6a6f78;
+      --text: #f6f5f1; --dim: #c9ccd1; --silk: #e1e3e6; --lead: #e3e5e8; --before: #ffa199;
+      --beta: #ffd377; --ok: #7ef0ae; --bad: #ff9aa3;
+    }
+    [data-color="yellow"] { --acc: #ffd23f; --acc2: #f5a623; --ink: #1f1600; }
+    [data-color="orange"] { --acc: #ffa94d; --acc2: #ff6b3d; --ink: #1f0c00; }
+    [data-color="red"]    { --acc: #ff6b6b; --acc2: #e0334f; --ink: #1f0508; }
+    [data-color="green"]  { --acc: #2ee6a6; --acc2: #4cc3ff; --ink: #0b1a10; }
+    [data-color="blue"]   { --acc: #4cc3ff; --acc2: #5b6cff; --ink: #06131f; }
+    [data-color="pink"]   { --acc: #ff86c8; --acc2: #ff4f8b; --ink: #1f0612; }
+    [data-color="purple"] { --acc: #c08bff; --acc2: #7b5cff; --ink: #12081f; }
+    [data-theme="grey"][data-color="yellow"] { --acc: #ffdc66; --acc2: #ffb648; }
+    [data-theme="grey"][data-color="orange"] { --acc: #ffbd73; --acc2: #ff8a63; }
+    [data-theme="grey"][data-color="red"]    { --acc: #ff8f8f; --acc2: #ff5c74; }
+    [data-theme="grey"][data-color="green"]  { --acc: #5ff0bd; --acc2: #7fd4ff; }
+    [data-theme="grey"][data-color="blue"]   { --acc: #7fd4ff; --acc2: #8f9bff; }
+    [data-theme="grey"][data-color="pink"]   { --acc: #ffa6d6; --acc2: #ff79a8; }
+    [data-theme="grey"][data-color="purple"] { --acc: #d4adff; --acc2: #a08bff; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body { background: var(--plate); color: var(--text); font: 12.5px/1.3 ui-rounded, "SF Pro Rounded", system-ui, sans-serif; display: flex; flex-direction: column; user-select: none; -webkit-font-smoothing: antialiased; overflow: hidden; }
+    button, select, input { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+    svg { display: block; }
+    select { background: var(--well); border: 1px solid var(--edge); border-radius: 8px; padding: 3px 7px; font-weight: 700; font-size: 12px; }
+    .lbl { color: var(--dim); font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .grow { flex: 1; min-width: 0; }
+
+    .top { display: flex; align-items: center; gap: 8px; padding: 9px 12px; flex: none; min-width: 0; }
+    .top > * { flex-shrink: 0; }
+    .top > .chips, .top > .hint { flex-shrink: 1; }
+    h1 { margin: 0 4px 0 0; font-size: 15px; white-space: nowrap; display: flex; align-items: baseline; gap: 5px; }
+    h1 small { color: var(--dim); font-size: 10.5px; font-weight: 600; cursor: default; }
+    .beta { font-size: 9px; font-weight: 900; background: var(--beta); color: #141619; border-radius: 4px; padding: 1px 5px; align-self: center; cursor: help; }
+    #lead { color: var(--lead); max-width: 150px; }
+    .arrow { color: var(--dim); font-weight: 900; }
+    .chips { display: flex; gap: 5px; min-width: 0; overflow: hidden; }
+    .chip { display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; padding: 2px 9px; font-weight: 800; font-size: 11.5px; background: var(--well); border: 1px solid var(--edge); white-space: nowrap; }
+    .chip i { width: 8px; height: 8px; border-radius: 50%; background: var(--acc); }
+    .hint { color: var(--dim); font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+    #help { display: flex; align-items: center; gap: 6px; height: 28px; border: 1px solid var(--edge); background: var(--well); border-radius: 9px; padding: 0 10px 0 6px; font-weight: 800; font-size: 12px; color: var(--silk); }
+    #help b { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--edge); color: var(--text); font-size: 10.5px; }
+    #help:hover { border-color: var(--silk); }
+    .colors { position: relative; }
+    #colorBtn { width: 30px; height: 28px; border-radius: 9px; border: 1px solid var(--edge); background: var(--well); display: grid; place-items: center; padding: 0; }
+    #colorBtn i, .sw { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, var(--acc), var(--acc2)); display: block; box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); }
+    #colorBtn.open { border-color: var(--acc); }
+    .menu { position: absolute; z-index: 30; top: calc(100% + 6px); right: 0; width: 150px; padding: 5px; background: var(--panel2); border: 1px solid var(--edge); border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,.45); display: flex; flex-direction: column; }
+    .menu[hidden] { display: none; }
+    .menu button { display: flex; align-items: center; gap: 9px; border: 0; background: none; padding: 5px 8px; border-radius: 7px; font-weight: 700; font-size: 12px; text-align: left; }
+    .menu button:hover { background: var(--well); }
+    .menu button span { flex: 1; }
+    .menu button svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; visibility: hidden; }
+    .menu button.on svg { visibility: visible; }
+    .theme { display: flex; background: var(--well); border: 1px solid var(--edge); border-radius: 9px; padding: 2px; }
+    .theme button { width: 26px; height: 22px; border: 0; border-radius: 7px; background: none; display: grid; place-items: center; padding: 0; color: var(--dim); }
+    .theme button.on { background: var(--panel2); color: var(--text); }
+    .theme svg { width: 12px; height: 12px; }
+
+    .view { flex: 1 1 0; min-height: 0; margin: 0 12px; display: flex; flex-direction: column; gap: 6px; }
+    .vhead { display: flex; align-items: center; gap: 8px; flex: none; }
+    #where { font-weight: 800; white-space: nowrap; }
+    #stats { color: var(--dim); font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    #stats b { color: var(--text); }
+    .lg { display: flex; gap: 10px; color: var(--dim); font-size: 10.5px; font-weight: 700; }
+    .lg span { display: flex; align-items: center; gap: 4px; white-space: nowrap; } .lg i { width: 12px; height: 3px; border-radius: 2px; display: block; }
+    #rows { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: 5px; }
+    .row { position: relative; flex: 1 1 0; min-height: 60px; background: var(--panel); border-radius: 10px; overflow: hidden; }
+    .row svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .row .name { position: absolute; left: 8px; top: 5px; font-size: 11px; font-weight: 800; color: var(--silk); z-index: 1; }
+    .row .gap { position: absolute; right: 8px; top: 5px; font-size: 11px; font-weight: 800; z-index: 1; font-variant-numeric: tabular-nums; }
+    .lead-f { fill: color-mix(in srgb, var(--lead) 22%, transparent); }
+    .ln-b { fill: none; stroke: var(--before); stroke-width: 1.2; opacity: .65; stroke-dasharray: 3 3; }
+    .ln-a { fill: none; stroke: var(--acc); stroke-width: 1.7; }
+    .cut { stroke: color-mix(in srgb, var(--acc) 35%, transparent); stroke-width: 1; stroke-dasharray: 2 3; }
+    .empty { flex: 1; display: grid; place-items: center; color: var(--dim); font-weight: 700; text-align: center; padding: 20px; background: var(--panel); border-radius: 10px; }
+    #pos { flex: none; width: 100%; accent-color: var(--acc); margin: 0; }
+
+    /* Progress bar and the end-of-run notice */
+    .bar { flex: none; margin: 8px 12px 0; display: flex; align-items: center; gap: 10px; }
+    .bar[hidden] { display: none; }
+    .track { flex: 1; height: 8px; border-radius: 4px; background: var(--well); border: 1px solid var(--edge); overflow: hidden; }
+    #barFill { height: 100%; width: 0; border-radius: 4px; background: linear-gradient(90deg, var(--acc), var(--acc2)); transition: width .25s; }
+    .bar.ok #barFill { background: var(--ok); } .bar.bad #barFill { background: var(--bad); }
+    #barPct { font-weight: 900; font-size: 12px; min-width: 38px; text-align: right; font-variant-numeric: tabular-nums; }
+    #barEta { color: var(--dim); font-size: 11.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 45%; }
+    .view { position: relative; }
+    .donebox { position: absolute; z-index: 20; left: 50%; top: 50%; transform: translate(-50%, -50%); min-width: 320px; max-width: 80%; display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--panel2); border: 1px solid var(--edge); border-radius: 16px; box-shadow: 0 18px 50px rgba(0,0,0,.5); }
+    .donebox[hidden] { display: none; }
+    #doneIcon { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; font-weight: 900; color: var(--ink); background: var(--ok); }
+    .donebox.bad #doneIcon { background: var(--bad); }
+    .donebox .dt { flex: 1; min-width: 0; }
+    #doneText { font-weight: 800; font-size: 13px; line-height: 1.35; }
+    #doneTime { color: var(--dim); font-size: 11.5px; font-weight: 700; margin-top: 3px; }
+    .foot { display: flex; align-items: center; gap: 12px; padding: 9px 12px; margin-top: 8px; border-top: 1px solid var(--edge); flex: none; }
+    .ctl { display: flex; align-items: center; gap: 6px; }
+    .ctl input[type=range] { width: 80px; accent-color: var(--acc); }
+    .ctl output { font-weight: 800; font-size: 11.5px; min-width: 34px; font-variant-numeric: tabular-nums; }
+    .seg { display: inline-flex; background: var(--well); border: 1px solid var(--edge); border-radius: 8px; padding: 2px; }
+    .seg button { border: 0; background: none; border-radius: 6px; padding: 2px 8px; font-size: 11.5px; font-weight: 800; color: var(--dim); }
+    .seg button.on { background: var(--panel2); color: var(--text); }
+    .chk { display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: 11.5px; color: var(--silk); white-space: nowrap; cursor: pointer; }
+    .chk input { accent-color: var(--acc); margin: 0; }
+    .status { color: var(--dim); font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .status.ok { color: var(--ok); } .status.bad { color: var(--bad); }
+    .btn { background: var(--well); border: 1px solid var(--edge); border-radius: 8px; padding: 5px 11px; font-weight: 800; font-size: 12px; white-space: nowrap; }
+    .btn:disabled { opacity: .4; cursor: default; }
+    .btn.main { border: 0; background: linear-gradient(135deg, var(--acc), var(--acc2)); color: var(--ink); font-weight: 900; padding: 6px 16px; }
+    @media (max-width: 860px) { #help span { display: none; } #help { padding: 0 6px; } .lg { display: none; } }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <h1>V-Align <small id="ver"></small></h1><span class="beta" id="beta"></span>
+    <select id="lead"></select><span class="arrow">←</span>
+    <div class="chips" id="chips"></div><span class="hint" id="hint"></span>
+    <span class="grow"></span>
+    <button id="help"></button>
+    <div class="colors"><button id="colorBtn" aria-haspopup="true"><i></i></button><div class="menu" id="colorMenu" hidden></div></div>
+    <div class="theme">
+      <button data-t="dark" id="tDark"><svg viewBox="0 0 16 16"><path d="M13.5 10.2A6 6 0 0 1 5.8 2.5a6 6 0 1 0 7.7 7.7z" fill="currentColor"/></svg></button>
+      <button data-t="grey" id="tGrey"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2.5a5.5 5.5 0 0 1 0 11z" fill="currentColor"/></svg></button>
+    </div>
+    <select id="lang"></select>
+  </div>
+  <div class="view">
+    <div class="vhead">
+      <select id="zoom"><option value="2">2 s</option><option value="4">4 s</option><option value="10">10 s</option><option value="30">30 s</option></select>
+      <span id="where"></span><span id="stats"></span>
+      <span class="grow"></span><span class="lg" id="legend"></span>
+    </div>
+    <div id="rows"></div>
+    <input type="range" id="pos" min="0" max="1000" value="0">
+    <div class="donebox" id="doneBox" hidden><span id="doneIcon"></span><div class="dt"><div id="doneText"></div><div id="doneTime"></div></div><button class="btn main" id="doneOk"></button></div>
+  </div>
+  <div class="bar" id="bar" hidden><div class="track"><div id="barFill"></div></div><span id="barPct"></span><span id="barEta"></span></div>
+  <div class="foot">
+    <label class="ctl"><span class="lbl" id="strLabel"></span><input type="range" id="strength" min="0" max="100" step="5"><output id="strOut"></output></label>
+    <span class="ctl"><span class="lbl" id="precLabel"></span><span class="seg" id="prec"></span></span>
+    <label class="chk" id="consBox"><input type="checkbox" id="cons"><span id="consLabel"></span></label>
+    <span class="status grow" id="status" role="status"></span>
+    <button class="btn" id="undo"></button>
+    <button class="btn main" id="apply"></button>
+  </div>
+  <script src="vendor/luna.global.js"></script>
+  <script src="tour.js"></script>
+  <script src="align.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
