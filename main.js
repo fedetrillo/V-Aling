@@ -8,7 +8,7 @@
 
 (() => {
   const $ = (id) => document.getElementById(id);
-  const VERSION = '0.9.2';
+  const VERSION = '0.9.3';
   const KEY = 'com.fedetrillo.align.';
   const store = {
     get: (k) => { try { return JSON.parse(localStorage.getItem(KEY + k)); } catch { return null; } },
@@ -403,7 +403,7 @@
     $('ver').onclick = async (ev) => {
       if (!ev.altKey) return;
       const report = { addOn: 'V-Align', version: VERSION, luna: luna?.version?.value ?? null, platform: navigator.platform, lang, opts, session: { tracks: (state?.dbls ?? []).map((d) => d.tk.name.value), lead: state?.lead?.tk?.name?.value ?? null, seconds: state ? Math.round((state.n * MSP) / 1000) : 0 }, log };
-      try { await navigator.clipboard.writeText(JSON.stringify(report, null, 2)); say('report', {}, 'ok', 6000); } catch { /* nothing */ }
+      try { if (await AddOnCopy(JSON.stringify(report, null, 2))) say('report', {}, 'ok', 5000); } catch { /* nothing */ }
     };
     let timer;
     let quietUntil = 0;   // right after a run, re-reads keep the result message on screen

@@ -3,7 +3,7 @@
     "id": "com.fedetrillo.align",
     "title": "V-Align",
     "name": "V-Align",
-    "version": "0.9.2",
+    "version": "0.9.3",
     "manufacturer": "Fede Trillo",
     "contact": "fedetrillo@gmail.com",
     "description": "An attempt at a free vocal aligner for LUNA (beta). V-Align puts doubles and backing vocals in time with the lead, piece by piece, with LUNA's own time-stretch. The unedited take is kept in V2 first, so you can always go back. Alt-click the version number to send us a report.",
