@@ -1,10 +1,13 @@
 {
   "name": "v-align",
   "private": true,
-  "version": "0.9.3",
+  "version": "0.10.0",
   "type": "module",
   "description": "V-Align, a LUNA Add On by Fede Trillo",
-  "scripts": { "serve": "ua-builder serve", "pack": "ua-builder pack" },
+  "scripts": {
+    "serve": "ua-builder serve",
+    "pack": "ua-builder pack"
+  },
   "author": "Fede Trillo <fedetrillo@gmail.com>",
   "license": "SEE LICENSE IN LICENSE"
 }

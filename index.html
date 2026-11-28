@@ -121,6 +121,13 @@
     .btn.main { border: 0; background: linear-gradient(135deg, var(--acc), var(--acc2)); color: var(--ink); font-weight: 900; padding: 6px 16px; }
     @media (max-width: 860px) { #help span { display: none; } #help { padding: 0 6px; } .lg { display: none; } }
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+    .chk[hidden] { display: none; }
+    .toast { position: fixed; left: 50%; bottom: 64px; transform: translateX(-50%); z-index: 60; background: var(--panel2, #2a2d33); color: var(--text, #f1f0ec); border: 1px solid var(--acc, #2ee6a6); border-radius: 10px; padding: 9px 16px; font-weight: 800; box-shadow: 0 10px 30px rgba(0,0,0,.45); max-width: 90%; text-align: center; }
+    .donebox .btn + .btn { margin-left: 6px; }
+    .donebox .dt { min-width: 260px; }
+    .bigwarp { color: var(--warn, #f3dc8c); font-weight: 700; }
+    .ctl output { white-space: nowrap; }
+    @media (max-width: 960px) { .foot { gap: 9px; } .ctl input[type=range] { width: 64px; } }
   </style>
 </head>
 <body>
@@ -145,12 +152,14 @@
     </div>
     <div id="rows"></div>
     <input type="range" id="pos" min="0" max="1000" value="0">
-    <div class="donebox" id="doneBox" hidden><span id="doneIcon"></span><div class="dt"><div id="doneText"></div><div id="doneTime"></div></div><button class="btn main" id="doneOk"></button></div>
+    <div class="donebox" id="doneBox" hidden><span id="doneIcon"></span><div class="dt"><div id="doneText"></div><div id="doneTime"></div></div><button class="btn" id="doneReport"></button><button class="btn main" id="doneOk"></button></div>
   </div>
+  <div class="toast" id="toast" role="status" hidden></div>
   <div class="bar" id="bar" hidden><div class="track"><div id="barFill"></div></div><span id="barPct"></span><span id="barEta"></span></div>
   <div class="foot">
     <label class="ctl"><span class="lbl" id="strLabel"></span><input type="range" id="strength" min="0" max="100" step="5"><output id="strOut"></output></label>
     <span class="ctl"><span class="lbl" id="precLabel"></span><span class="seg" id="prec"></span></span>
+    <span class="ctl"><span class="lbl" id="methodLabel"></span><span class="seg" id="method"></span></span>
     <label class="chk" id="consBox"><input type="checkbox" id="cons"><span id="consLabel"></span></label>
     <span class="status grow" id="status" role="status"></span>
     <button class="btn" id="undo"></button>

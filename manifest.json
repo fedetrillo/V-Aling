@@ -1,26 +1,26 @@
 {
-    "package_name": "V-Align",
-    "id": "com.fedetrillo.align",
-    "title": "V-Align",
-    "name": "V-Align",
-    "version": "0.9.3",
-    "manufacturer": "Fede Trillo",
-    "contact": "fedetrillo@gmail.com",
-    "description": "An attempt at a free vocal aligner for LUNA (beta). V-Align puts doubles and backing vocals in time with the lead, piece by piece, with LUNA's own time-stretch. The unedited take is kept in V2 first, so you can always go back. Alt-click the version number to send us a report.",
-    "categories": [
-        "Editing",
-        "Mixing & Mastering"
-    ],
-    "icon": "icon.png",
-    "sdk_version": "3.1.2",
-    "min_luna_version": "3.1.2",
-    "engines": [
-        "luna"
-    ],
-    "html": "index.html",
-    "target": "window",
-    "floating": true,
-    "show_with_session": true,
-    "width": 900,
-    "height": 480
+  "package_name": "V-Align",
+  "id": "com.fedetrillo.align",
+  "title": "V-Align",
+  "name": "V-Align",
+  "version": "0.10.0",
+  "manufacturer": "Fede Trillo",
+  "contact": "fedetrillo@gmail.com",
+  "description": "An attempt at a free vocal aligner for LUNA (beta). V-Align puts doubles and backing vocals in time with the lead, piece by piece, with LUNA's own time-stretch. The unedited take is kept in V2 first, so you can always go back. Alt-click the version number to send us a report.",
+  "categories": [
+    "Editing",
+    "Mixing & Mastering"
+  ],
+  "icon": "icon.png",
+  "sdk_version": "3.1.2",
+  "min_luna_version": "3.1.2",
+  "engines": [
+    "luna"
+  ],
+  "html": "index.html",
+  "target": "window",
+  "floating": true,
+  "show_with_session": true,
+  "width": 900,
+  "height": 480
 }

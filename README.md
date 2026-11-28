@@ -33,6 +33,9 @@ what you heard. Every report helps.
 
 ## Good to know
 
+- **Warp or Pieces.** Warp sounds natural when the double is already close to the lead (small
+  offsets, up to about 50 ms). When it has to move a lot, the stretching shows: use **Pieces**, or
+  move the take closer by hand first. V-Align warns you when the measured offset is large.
 - V-Align compares the shape of the voices (when each syllable starts), not their pitch, so it
   works best on a double of the same line by the same singer.
 - Whole songs work, but take longer and ask a lot of LUNA (hundreds of stretched pieces). If
@@ -52,6 +55,9 @@ tiempo con la voz principal: V-Align compara cada una con la principal y la muev
 estiramiento de LUNA. Antes guarda la toma sin editar en una versión nueva (V2), así que siempre
 puedes volver. Si algo falla, **Alt-clic en el número de versión** copia un informe: mándalo a
 fedetrillo@gmail.com o al hilo de V-Align en Discord.
+
+**Warp o Trozos:** Warp suena natural con desfases pequeños (hasta unos 50 ms). Si tiene que mover
+mucho, el estiramiento se nota: usa **Trozos**, o acerca antes la toma a mano.
 
 ## Licence
 

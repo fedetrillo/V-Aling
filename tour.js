@@ -6,14 +6,14 @@
   const css = `
   .tour-veil { position: fixed; inset: 0; z-index: 90; }
   .tour-hole { position: fixed; z-index: 91; border-radius: 12px; box-shadow: 0 0 0 9999px rgba(0,0,0,.62); outline: 2px solid var(--acc, var(--accent, var(--slow, #8ab4ff))); outline-offset: 3px; transition: all .22s ease; pointer-events: none; }
-  .tour-tip { position: fixed; z-index: 92; width: 300px; background: var(--panel2, var(--raised, var(--panel))); color: var(--text); border: 1px solid var(--edge, var(--line, #3a3d44)); border-radius: 14px; box-shadow: 0 18px 50px rgba(0,0,0,.55); padding: 14px 16px 12px; transition: top .22s ease, left .22s ease; }
+  .tour-tip { position: fixed; z-index: 92; width: 340px; max-width: calc(100vw - 16px); box-sizing: border-box; background: var(--panel2, var(--raised, var(--panel))); color: var(--text); border: 1px solid var(--edge, var(--line, #3a3d44)); border-radius: 14px; box-shadow: 0 18px 50px rgba(0,0,0,.55); padding: 14px 16px 12px; transition: top .22s ease, left .22s ease; }
   .tour-tip h4 { margin: 0 0 6px; font-size: 14px; }
   .tour-tip p { margin: 0; font-size: 12.5px; line-height: 1.45; color: var(--silk); }
-  .tour-tip .tour-row { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
-  .tour-tip .tour-dots { flex: 1; display: flex; gap: 5px; }
+  .tour-tip .tour-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+  .tour-tip .tour-dots { flex: 1 1 30px; min-width: 0; display: flex; flex-wrap: wrap; gap: 5px; }
   .tour-tip .tour-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--edge, var(--line, #3a3d44)); }
   .tour-tip .tour-dots i.on { background: var(--acc, var(--accent, var(--slow, #8ab4ff))); }
-  .tour-tip button { border: 1px solid var(--edge, var(--line, #3a3d44)); background: var(--well); color: var(--text); border-radius: 9px; padding: 6px 12px; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+  .tour-tip button { border: 1px solid var(--edge, var(--line, #3a3d44)); background: var(--well); color: var(--text); border-radius: 9px; padding: 6px 12px; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; white-space: nowrap; flex: none; width: auto; min-width: 0; margin: 0; }
   .tour-tip button.tour-next { border: 0; color: var(--ink); background: linear-gradient(90deg, var(--acc, var(--accent, var(--slow, #8ab4ff))), var(--acc2, var(--acc, var(--accent, var(--slow, #8ab4ff))))); }
   .tour-tip button.tour-skip { border: 0; background: none; color: var(--dim); padding: 6px 4px; }
   .tour-langs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 12px; }
